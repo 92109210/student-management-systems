@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xh.ssm1.mapper.ScMapper">
+
+<resultMap id="scResultMap" type="sc">
+	<association property="student"  column="{sid=sid}" javaType="Student" select="cn.xh.ssm1.mapper.StudentMapper.getStuInfo"/>
+	<association property="course"  column="{couid=couid}" javaType="Course" select="cn.xh.ssm1.mapper.CourseMapper.getCouInfo"/>
+</resultMap>
+
+<select id="getScInfo" parameterType="sc" resultMap="scResultMap">
+	select * from sc
+	<where>
+		<if test="scid != null"> and scid = #{scid} </if>
+		<if test="student != null">
+			<if test="student.sid != null"> and sid = #{student.sid} </if>
+		</if>
+		<if test="course != null">
+			<if test="course.couid != null"> and couid = #{course.couid} </if>
+		</if>
+	</where>
+</select>
+
+<insert id="addSc" parameterType="sc">
+	insert into sc (sid, couid) values (#{student.sid}, #{course.couid} )
+</insert>
+
+<delete id="delSc" parameterType="sc">
+	delete from sc
+	<where>
+		<if test="scid != null"> and scid = #{scid} </if>
+		<if test="student != null">
+			<if test="student.sid != null"> and sid = #{student.sid} </if>
+		</if>
+		<if test="course != null">
+			<if test="course.couid != null"> and couid = #{course.couid} </if>
+		</if>
+	</where>
+</delete>
+
+<update id="updSc" parameterType="sc">
+	update sc
+	<trim prefix="set" suffix="" suffixOverrides=",">
+		<if test="after.scid != null"> scid = #{after.scid}, </if>
+		<if test="after.student != null">
+			<if test="after.student.sid != null"> sid = #{after.student.sid}, </if>
+		</if>
+		<if test="after.course != null">
+			<if test="after.course.couid != null"> couid = #{after.course.couid}, </if>
+		</if>
+	</trim>
+	<where>
+		<if test="before.scid != null"> and scid = #{before.scid} </if>
+		<if test="before.student != null">
+			<if test="before.student.sid != null"> and sid = #{before.student.sid} </if>
+		</if>
+		<if test="before.course != null">
+			<if test="before.course.couid != null"> and couid = #{before.course.couid} </if>
+		</if>
+	</where>
+</update>
+
+</mapper>

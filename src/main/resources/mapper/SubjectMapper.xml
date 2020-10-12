@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xh.ssm1.mapper.SubjectMapper">
+
+<select id="getSubInfo" parameterType="subject" resultType="subject">
+	select * from subject
+	<where>
+		<if test="subid != null"> and subid = #{subid} </if>
+		<if test="subname != null"> and subname = #{subname} </if>
+		<if test="subintro != null"> and subintro = #{subintro} </if>
+		<if test="subtype != null"> and subtype = #{subtype} </if>
+		<if test="subcoll != null"> and subcoll = #{subcoll} </if>
+		<if test="subpro != null"> and subpro = #{subpro} </if>
+	</where>
+</select>
+
+<insert id="addSubject" parameterType="subject">
+	insert into subject
+	<trim prefix="(" suffix=")" suffixOverrides=",">
+		subname,
+		<if test="subid != null"> subid, </if>
+		<if test="subintro != null"> subintro, </if>
+		<if test="subtype != null"> subtype, </if>
+		<if test="subcoll != null"> subcoll, </if>
+		<if test="subpro != null"> subpro, </if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides=",">
+		#{subname},
+		<if test="subid != null"> #{subid}, </if>
+		<if test="subintro != null"> #{subintro}, </if>
+		<if test="subtype != null"> #{subtype}, </if>
+		<if test="subcoll != null"> #{subcoll}, </if>
+		<if test="subpro != null"> #{subpro}, </if>
+	</trim>
+</insert>
+
+<delete  id="delSubject" parameterType="subject">
+	delete from subject
+	<where>
+		<if test="subid != null"> and subid = #{subid} </if>
+		<if test="subname != null"> and subname = #{subname} </if>
+		<if test="subintro != null"> and subintro = #{subintro} </if>
+		<if test="subtype != null"> and subtype = #{subtype} </if>
+		<if test="subcoll != null"> and subcoll = #{subcoll} </if>
+		<if test="subpro != null"> and subpro = #{subpro} </if>
+	</where>
+</delete >
+
+<update id="updSubject" parameterType="subject">
+	update subject
+	<trim prefix="set" suffix="" suffixOverrides=",">
+		<if test="after.subid != null"> subid = #{after.subid}, </if>
+		<if test="after.subname != null"> subname = #{after.subname}, </if>
+		<if test="after.subintro != null"> subintro = #{after.subintro}, </if>
+		<if test="after.subtype != null"> subtype = #{after.subtype}, </if>
+		<if test="after.subcoll != null"> subcoll = #{after.subcoll}, </if>
+		<if test="after.subpro != null"> subpro = #{after.subpro}, </if>
+	</trim>
+	<where>
+		<if test="before.subid != null"> and subid = #{before.subid} </if>
+		<if test="before.subname != null"> and subname = #{before.subname} </if>
+		<if test="before.subintro != null"> and subintro = #{before.subintro} </if>
+		<if test="before.subtype != null"> and subtype = #{before.subtype} </if>
+		<if test="before.subcoll != null"> and subcoll = #{before.subcoll} </if>
+		<if test="before.subpro != null"> and subpro = #{before.subpro} </if>
+	</where>
+</update>
+
+</mapper>

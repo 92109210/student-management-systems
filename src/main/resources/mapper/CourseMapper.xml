@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xh.ssm1.mapper.CourseMapper">
+
+<resultMap id="courseResultMap" type="course">
+	<association property="subject"  column="{subid=subid}" javaType="Subject" select="cn.xh.ssm1.mapper.SubjectMapper.getSubInfo"/>
+	<association property="teacher"  column="{tid=tid}" javaType="Teacher" select="cn.xh.ssm1.mapper.TeacherMapper.getTeaInfo"/>
+</resultMap>
+
+<select id="getCouInfo" parameterType="course" resultMap="courseResultMap">
+	select * from course
+	<where>
+		<if test="couid != null"> and couid = #{couid} </if>
+		<if test="subject != null">
+			<if test="subject.subid != null"> and subid = #{subject.subid} </if>
+		</if>
+		<if test="teacher != null">
+			<if test="teacher.tid != null"> and tid = #{teacher.tid} </if>
+		</if>
+		<if test="coutime != null"> and coutime = #{coutime} </if>
+		<if test="couweek != null"> and couweek = #{couweek} </if>
+		<if test="couroom != null"> and couroom = #{couroom} </if>
+		<if test="credits != null"> and credits = #{credits} </if>
+		<if test="period != null"> and credits = #{credits} </if>
+		<if test="totalnum != null"> and totalnum = #{totalnum} </if>
+	</where>
+</select>
+
+<insert id="addCourse" parameterType="course">
+	insert into course
+	<trim prefix="(" suffix=")" suffixOverrides=",">
+		subid,tid,
+		<if test="coutime != null"> coutime, </if>
+		<if test="couweek != null"> couweek, </if>
+		<if test="couroom != null"> couroom, </if>
+		<if test="credits != null"> credits, </if>
+		<if test="period != null"> period, </if>
+		<if test="totalnum != null"> totalnum, </if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides=",">
+		#{subject.subid}, #{teacher.tid},
+		<if test="coutime != null"> #{coutime}, </if>
+		<if test="couweek != null"> #{couweek}, </if>
+		<if test="couroom != null"> #{couroom}, </if>
+		<if test="credits != null"> #{credits}, </if>
+		<if test="period != null"> #{period}, </if>
+		<if test="totalnum != null"> #{totalnum}, </if>
+	</trim>
+</insert>
+
+<delete id="delCourse" parameterType="course">
+	delete from course
+	<where>
+		<if test="couid != null"> and couid = #{couid} </if>
+		<if test="subject != null">
+			<if test="subject.subid != null"> and subid = #{subject.subid} </if>
+		</if>
+		<if test="teacher != null">
+			<if test="teacher.tid != null"> and tid = #{teacher.tid} </if>
+		</if>
+		<if test="coutime != null"> and coutime = #{coutime} </if>
+		<if test="couweek != null"> and couweek = #{couweek} </if>
+		<if test="couroom != null"> and couroom = #{couroom} </if>
+		<if test="credits != null"> and credits = #{credits} </if>
+		<if test="period != null"> and period = #{period} </if>
+		<if test="totalnum != null"> and totalnum = #{totalnum} </if>
+	</where>
+</delete>
+
+<update id="updCourse" parameterType="course">
+	update course
+	<trim prefix="set" suffix="" suffixOverrides=",">
+		<if test="after.subject != null">
+			<if test="after.subject.subid != null"> subid = #{after.subject.subid}, </if>
+		</if>
+		<if test="after.teacher != null">
+			<if test="after.teacher.tid != null"> tid = #{after.teacher.tid}, </if>
+		</if>
+		<if test="after.coutime != null"> coutime = #{after.coutime}, </if>
+		<if test="after.couweek != null"> couweek = #{after.couweek}, </if>
+		<if test="after.couroom != null"> couroom = #{after.couroom}, </if>
+		<if test="after.credits != null"> credits = #{after.credits}, </if>
+		<if test="after.period != null"> period = #{after.period}, </if>
+		<if test="after.totalnum != null"> totalnum = #{after.totalnum}, </if>
+	</trim>
+	<where>
+		<if test="before.couid != null"> and couid = #{before.couid} </if>
+		<if test="before.subject != null">
+			<if test="before.subject.subid != null"> and subid = #{before.subject.subid} </if>
+		</if>
+		<if test="before.teacher != null">
+			<if test="before.teacher.tid != null"> and tid = #{before.teacher.tid} </if>
+		</if>
+		<if test="before.coutime != null"> and coutime = #{before.coutime} </if>
+		<if test="before.couweek != null"> and couweek = #{before.couweek} </if>
+		<if test="before.couroom != null"> and couroom = #{before.couroom} </if>
+		<if test="before.credits != null"> and credits = #{before.credits} </if>
+		<if test="before.period != null"> and period = #{before.period} </if>
+		<if test="before.totalnum != null"> and totalnum = #{before.totalnum} </if>
+	</where>
+</update>
+
+</mapper>

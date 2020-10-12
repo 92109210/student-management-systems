@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xh.ssm1.mapper.TeacherMapper">
+
+<select id="getTeaInfo" parameterType="teacher" resultType="teacher">
+	select * from teacher
+	<where>
+		<if test="tid != null"> and tid = #{tid} </if>
+		<if test="tnum != null"> and tnum = #{tnum} </if>
+		<if test="tpwd != null"> and tpwd = #{tpwd} </if>
+		<if test="tname != null"> and tname = #{tname} </if>
+		<if test="tgender != null"> and tgender = #{tgender} </if>
+		<if test="tidcard != null"> and tidcard = #{tidcard} </if>
+		<if test="tage != null"> and tage = #{tage} </if>
+	</where>
+</select>
+
+<insert id="addTeacher" parameterType="teacher">
+	insert into teacher
+	<trim prefix="(" suffix=")" suffixOverrides=",">
+		tnum,tpwd,
+		<if test="tname != null"> tname, </if>
+		<if test="tgender != null"> tgender, </if>
+		<if test="tidcard != null"> tidcard, </if>
+		<if test="tage != null"> tage, </if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides=",">
+		#{tnum}, #{tpwd},
+		<if test="tname != null"> #{tname}, </if>
+		<if test="tgender != null"> #{tgender}, </if>
+		<if test="tidcard != null"> #{tidcard}, </if>
+		<if test="tage != null"> #{tage}, </if>
+	</trim>
+</insert>
+
+<delete id="delTeacher" parameterType="teacher">
+	delete from teacher
+	<where>
+		<if test="tid != null"> and tid = #{tid} </if>
+		<if test="tnum != null"> and tnum = #{tnum} </if>
+		<if test="tpwd != null"> and tpwd = #{tpwd} </if>
+		<if test="tname != null"> and tname = #{tname} </if>
+		<if test="tgender != null"> and tgender = #{tgender} </if>
+		<if test="tidcard != null"> and tidcard = #{tidcard} </if>
+		<if test="tage != null"> and tage = #{tage} </if>
+	</where>
+</delete>
+
+<update id="updTeacher" parameterType="teacher">
+	update teacher
+	<trim prefix="set" suffix="" suffixOverrides=",">
+		<if test="after.tid != null"> tid = #{after.tid}, </if>
+		<if test="after.tnum != null"> tnum = #{after.tnum}, </if>
+		<if test="after.tpwd != null"> tpwd = #{after.tpwd}, </if>
+		<if test="after.tname != null"> tname = #{after.tname}, </if>
+		<if test="after.tgender != null"> tgender = #{after.tgender}, </if>
+		<if test="after.tidcard != null"> tidcard = #{after.tidcard}, </if>
+		<if test="after.tage != null"> tage = #{after.tage}, </if>
+	</trim>
+
+	<where>
+		<if test="before.tid != null"> and tid = #{before.tid} </if>
+		<if test="before.tnum != null"> and tnum = #{before.tnum} </if>
+		<if test="before.tpwd != null"> and tpwd = #{before.tpwd} </if>
+		<if test="before.tname != null"> and tname = #{before.tname} </if>
+		<if test="before.tgender != null"> and tgender = #{before.tgender} </if>
+		<if test="before.tidcard != null"> and tidcard = #{before.tidcard} </if>
+		<if test="before.tage != null"> and tage = #{before.tage} </if>
+	</where>
+</update>
+
+</mapper>

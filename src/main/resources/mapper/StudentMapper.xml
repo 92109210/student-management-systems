@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xh.ssm1.mapper.StudentMapper">
+
+<select id="getStuInfo" parameterType="student" resultType="student">
+	select * from student
+	<where>
+		<if test="sid != null"> and sid = #{sid} </if>
+		<if test="snum != null"> and snum = #{snum} </if>
+		<if test="spwd != null"> and spwd = #{spwd} </if>
+		<if test="sname != null"> and sname = #{sname} </if>
+		<if test="sgender != null"> and sgender = #{sgender} </if>
+		<if test="sidcard != null"> and sidcard = #{sidcard} </if>
+		<if test="sage != null"> and sage = #{sage} </if>
+		<if test="scoll != null"> and scoll = #{scoll} </if>
+		<if test="spro != null"> and spro = #{spro} </if>
+	</where>
+</select>
+
+<insert id="addStudent" parameterType="student">
+	insert into student
+	<trim prefix="(" suffix=")" suffixOverrides=",">
+		snum,spwd,
+		<if test="sname != null"> sname, </if>
+		<if test="sgender != null"> sgender, </if>
+		<if test="sidcard != null"> sidcard, </if>
+		<if test="sage != null"> sage, </if>
+		<if test="scoll != null"> scoll, </if>
+		<if test="spro != null"> spro, </if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides=",">
+		#{snum}, #{spwd},
+		<if test="sname != null"> #{sname}, </if>
+		<if test="sgender != null"> #{sgender}, </if>
+		<if test="sidcard != null"> #{sidcard}, </if>
+		<if test="sage != null"> #{sage}, </if>
+		<if test="scoll != null"> #{scoll}, </if>
+		<if test="spro != null"> #{spro}, </if>
+	</trim>
+</insert>
+
+<delete  id="delStudent" parameterType="student">
+	delete from student
+	<where>
+		<if test="sid != null"> and sid = #{sid} </if>
+		<if test="snum != null"> and snum = #{snum} </if>
+		<if test="spwd != null"> and spwd = #{spwd} </if>
+		<if test="sname != null"> and sname = #{sname} </if>
+		<if test="sgender != null"> and sgender = #{sgender} </if>
+		<if test="sidcard != null"> and sidcard = #{sidcard} </if>
+		<if test="sage != null"> and sage = #{sage} </if>
+		<if test="scoll != null"> and scoll = #{scoll} </if>
+		<if test="spro != null"> and spro = #{spro} </if>
+	</where>
+</delete >
+
+
+<update id="updStudent" parameterType="student">
+	update student
+	<trim prefix="set" suffix="" suffixOverrides=",">
+		<if test="after.sid != null"> sid = #{after.sid}, </if>
+		<if test="after.snum != null"> snum = #{after.snum}, </if>
+		<if test="after.spwd != null"> spwd = #{after.spwd}, </if>
+		<if test="after.sname != null"> sname = #{after.sname}, </if>
+		<if test="after.sgender != null"> sgender = #{after.sgender}, </if>
+		<if test="after.sidcard != null"> sidcard = #{after.sidcard}, </if>
+		<if test="after.sage != null"> sage = #{after.sage}, </if>
+		<if test="after.scoll != null"> scoll = #{after.scoll}, </if>
+		<if test="after.spro != null"> spro = #{after.spro}, </if>
+	</trim>
+	<where>
+		<if test="before.sid != null"> and sid = #{before.sid} </if>
+		<if test="before.snum != null"> and snum = #{before.snum} </if>
+		<if test="before.spwd != null"> and spwd = #{before.spwd} </if>
+		<if test="before.sname != null"> and sname = #{before.sname} </if>
+		<if test="before.sgender != null"> and sgender = #{before.sgender} </if>
+		<if test="before.sidcard != null"> and sidcard = #{before.sidcard} </if>
+		<if test="before.sage != null"> and sage = #{before.sage} </if>
+		<if test="before.scoll != null"> and scoll = #{before.scoll} </if>
+		<if test="before.spro != null"> and spro = #{before.spro} </if>
+	</where>
+</update>
+
+</mapper>

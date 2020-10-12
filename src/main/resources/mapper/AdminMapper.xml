@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xh.ssm1.mapper.AdminMapper">
+
+<select id="getAdmInfo" parameterType="admin" resultType="admin">
+	select * from admin
+	<where>
+		<if test="aid != null"> and aid = #{aid} </if>
+		<if test="anum != null"> and anum = #{anum} </if>
+		<if test="apwd != null"> and apwd = #{apwd} </if>
+		<if test="aname != null"> and aname = #{aname} </if>
+		<if test="agender != null"> and agender = #{agender} </if>
+		<if test="aidcard != null"> and aidcard = #{aidcard} </if>
+		<if test="aage != null"> and aage = #{aage} </if>
+	</where>
+</select>
+
+<insert id="addAdmin" parameterType="admin">
+	insert into admin
+	<trim prefix="(" suffix=")" suffixOverrides=",">
+		anum,apwd,
+		<if test="aname != null"> aname, </if>
+		<if test="agender != null"> agender, </if>
+		<if test="aidcard != null"> aidcard, </if>
+		<if test="aage != null"> aage, </if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides=",">
+		#{anum}, #{apwd},
+		<if test="aname != null"> #{aname}, </if>
+		<if test="agender != null"> #{agender}, </if>
+		<if test="aidcard != null"> #{aidcard}, </if>
+		<if test="aage != null"> #{aage}, </if>
+	</trim>
+</insert>
+
+<delete  id="delAdmin" parameterType="admin">
+	delete from admin
+	<where>
+		<if test="aid != null"> and aid = #{aid} </if>
+		<if test="anum != null"> and anum = #{anum} </if>
+		<if test="apwd != null"> and apwd = #{apwd} </if>
+		<if test="aname != null"> and aname = #{aname} </if>
+		<if test="agender != null"> and agender = #{agender} </if>
+		<if test="aidcard != null"> and aidcard = #{aidcard} </if>
+		<if test="aage != null"> and aage = #{aage} </if>
+	</where>
+</delete >
+
+<update id="updAdmin" parameterType="admin">
+	update admin
+	<trim prefix="set" suffix="" suffixOverrides=",">
+		<if test="after.aid != null"> aid = #{after.aid}, </if>
+		<if test="after.anum != null"> anum = #{after.anum}, </if>
+		<if test="after.apwd != null"> apwd = #{after.apwd}, </if>
+		<if test="after.aname != null"> aname = #{after.aname}, </if>
+		<if test="after.agender != null"> agender = #{after.agender}, </if>
+		<if test="after.aidcard != null"> aidcard = #{after.aidcard}, </if>
+		<if test="after.aage != null"> aage = #{after.aage}, </if>
+	</trim>
+	<where>
+		<if test="before.aid != null"> and aid = #{before.aid} </if>
+		<if test="before.anum != null"> and anum = #{before.anum} </if>
+		<if test="before.apwd != null"> and apwd = #{before.apwd} </if>
+		<if test="before.aname != null"> and aname = #{before.aname} </if>
+		<if test="before.agender != null"> and agender = #{before.agender} </if>
+		<if test="before.aidcard != null"> and aidcard = #{before.aidcard} </if>
+		<if test="before.aage != null"> and aage = #{before.aage} </if>
+	</where>
+</update>
+
+</mapper>
